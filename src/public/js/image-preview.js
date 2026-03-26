@@ -1,8 +1,14 @@
-// プロフィール画像を選択したら、その場でプレビュー表示する
+// 画像選択時にその場でプレビュー表示する
 document.addEventListener('DOMContentLoaded', () => {
-    const input = document.getElementById('profile_image');
-    const preview = document.getElementById('profilePreview');
-    const previewText = document.getElementById('profilePreviewText');
+    setupImagePreview('profile_image', 'profilePreview', 'profilePreviewText');
+    setupImagePreview('image', 'itemPreview', 'itemPreviewText');
+});
+
+// 画像プレビューを設定する
+function setupImagePreview(inputId, previewId, previewTextId) {
+    const input = document.getElementById(inputId);
+    const preview = document.getElementById(previewId);
+    const previewText = document.getElementById(previewTextId);
 
     if (!input || !preview || !previewText) {
         return;
@@ -30,4 +36,4 @@ document.addEventListener('DOMContentLoaded', () => {
             URL.revokeObjectURL(imageUrl);
         };
     });
-});
+}

@@ -11,6 +11,10 @@ class FavoriteController extends Controller
     // 商品をお気に入りに追加
     public function store(Item $item)
     {
+        if ($item->user_id === Auth::id()) {
+            return back();
+        }
+
         Favorite::firstOrCreate([
             'user_id' => Auth::id(),
             'item_id' => $item->id,
