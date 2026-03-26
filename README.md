@@ -37,7 +37,6 @@ MAIL_USERNAME=null
 MAIL_PASSWORD=null
 MAIL_ENCRYPTION=null
 MAIL_FROM_ADDRESS=test@example.com
-
 MAIL_FROM_NAME="${APP_NAME}"
 ```
 #### 6. Stripe ダッシュボードで API キーを取得する
@@ -52,6 +51,7 @@ STRIPE_SECRET=sk_test_xxxxxxxxxxxxxxxxxxxxx
 ```bash
 stripe login
 ```
+> `stripe login` 実行後、表示された URL をブラウザで開いて認証を完了してください。  
 #### 8. Webhook を Laravel に転送する
 ```bash
 stripe listen --events checkout.session.completed --forward-to http://localhost/stripe/webhook
@@ -60,6 +60,8 @@ stripe listen --events checkout.session.completed --forward-to http://localhost/
 ```env
 STRIPE_WEBHOOK_SECRET=whsec_xxxxxxxxxxxxxxxxxxxxx
 ```
+>ローカル環境で購入機能を確認する場合も、Stripe はテストモードの API キーで有効にしておく必要があります。<br>
+Webhook の受信確認は Stripe CLI を利用します。
 #### 10. アプリケーションキーを生成
 ```bash
 php artisan key:generate
@@ -84,7 +86,15 @@ storage および bootstrap/cache ディレクトリに書き込み権限が無�
 
 ※ 本設定はローカル開発環境向けです。<br>
 
+> Stripeテスト用決済について
 
+購入機能の動作確認は、Stripe のテストモードで行います。
+実際のクレジットカード情報は使用せず、Stripe のテストカード番号を使用してください。<br>
+
+**決済成功確認用のテストカード例**
+- カード番号：4242 4242 4242 4242<br>
+- 有効期限：任意の未来日付<br>
+- セキュリティコード：任意の3桁<br>
 
 ## 使用技術(実行環境)
 - PHP 8.x
@@ -111,11 +121,11 @@ storage および bootstrap/cache ディレクトリに書き込み権限が無�
 email: seller@example.com<br>
 password: password123<br>
 
-**出品ユーザー**<br>
+**購入ユーザー**<br>
 email: buyer@example.com<br>
 password: password123<br>
 
-**出品ユーザー**<br>
+**閲覧ユーザー**<br>
 email: viewer@example.com<br>
 password: password123<br>
 
@@ -127,16 +137,16 @@ password: password123<br>
 - プロフィール画像：storage/app/public/profiles
 
 ## ER図
-<details>
-<summary>ER図を表示する</summary>
+<details><summary>ER図を表示する</summary>
 
 ![ER図](./docs/ER.drawio.png)
 
 </details>
 
-## テスト手順
+## 自動テスト実行手順
 #### 1. テスト用 .env を作成して環境変数を設定
 ```bash
+docker compose exec php bash
 cp .env .env.testing
 ```
 ```env
@@ -163,22 +173,24 @@ docker compose exec mysql bash
 mysql -u root -p
 ```
 ```sql
-CREATE DATABASE laravel_test_db;
+CREATE DATABASE IF NOT EXISTS laravel_test_db;
+GRANT ALL PRIVILEGES ON laravel_test_db.* TO 'laravel_user'@'%';
+FLUSH PRIVILEGES;
 ```
 #### 3. アプリケーションキーを生成する
 ```bash
-docker compose exec php php artisan key:generate --env=testing
+php artisan key:generate --env=testing
 ```
 #### 4. テストを実行する
 > すべて実行する場合
 ```bash
-docker compose exec php php artisan test
+php artisan test
 ```
 > 特定ファイルのみ実行する場合
 ```bash
-docker compose exec php php artisan test tests/Feature/ディレクトリ名/ファイル名
+php artisan test tests/Feature/ディレクトリ名/ファイル名
 ```
 > 特定テストのみ実行する場合
 ```bash
-docker compose exec php php artisan test --filter=テスト名
+php artisan test --filter=テスト名
 ```
