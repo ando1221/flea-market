@@ -1,0 +1,245 @@
+html,
+body {
+    margin: 0;
+}
+
+/* =========================
+   Header
+   ========================= */
+.header {
+    background-color: #000;
+    padding: 8px 0;
+    min-height: 40px;
+}
+
+.header__inner {
+    min-height: 40px;
+    margin: 0 auto;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    max-width: none;
+}
+
+.brand {
+    flex-shrink: 0;
+}
+
+/* ロゴ */
+.brand img {
+    height: 32px;
+    display: block;
+}
+
+/* 検索欄 */
+.search {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.search input {
+    width: 70%;
+    max-width: 480px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: none;
+    font-size: 14px;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.search input:focus {
+    outline: none;
+    box-shadow: none;
+    border: none;
+}
+
+/* ナビ */
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-shrink: 0;
+}
+
+.nav__link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.nav__sell {
+    background-color: #fff;
+    color: #000;
+    padding: 6px 20px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.nav__logout {
+    color: #fff;
+}
+
+.nav__notice {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 16px;
+    white-space: nowrap;
+}
+
+/* =========================
+   Flash Message
+   ========================= */
+.flash-message {
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.flash-message--success {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+/* =========================
+   Common Buttons
+   ========================= */
+.btn-block {
+    display: block;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.btn-primary {
+    display: block;
+    width: 100%;
+    padding: 12px 16px;
+    background: #FF5555;
+    color: #fff;
+    border: 2px solid #FF5555;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+/* =========================
+   Common Error
+   ========================= */
+.error,
+.field__error {
+    font-size: 12px;
+    color: #e60023;
+    margin-top: 2px;
+}
+
+/* =========================
+   Tabs / Grid / Card
+   ========================= */
+.page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 16px;
+}
+
+.tabs {
+    display: flex;
+    gap: clamp(32px, 5vw, 80px);
+    align-items: flex-end;
+    font-weight: bold;
+    margin-left: 0;
+    padding-left: 100px;
+    flex-wrap: wrap;
+}
+
+.tab {
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    padding-bottom: 10px;
+    white-space: nowrap;
+}
+
+.tab.is-active {
+    color: #e60023;
+}
+
+.tabs__line {
+    border-bottom: 2px solid #666;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+}
+
+.grid {
+    margin-top: 42px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(28px, 3vw, 50px);
+}
+
+.card {
+    display: block;
+    text-decoration: none;
+    color: #000;
+    min-width: 0;
+}
+
+.card__img-wrap {
+    width: 100%;
+}
+
+.card__img {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #f3f3f3;
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+.card__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.card__img--sold img {
+    opacity: 0.45;
+}
+
+.card__sold {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.28);
+    color: #fff;
+    font-size: clamp(22px, 2vw, 30px);
+    font-weight: bold;
+    letter-spacing: 1px;
+    pointer-events: none;
+}
+
+.card__name {
+    margin-top: 8px;
+    font-size: 18px;
+    line-height: 1.4;
+    word-break: break-word;
+}
